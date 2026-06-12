@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { DB_NAME } from "../constants.js";
-
+// console.log("URI:", process.env.MONGODB_URI);
 const connectDB = async () => {
     try {
         const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
@@ -13,3 +13,24 @@ const connectDB = async () => {
 }
 
 export default connectDB
+
+
+// import mongoose from "mongoose";
+
+// const connectDB = async () => {
+//     try {
+//         const connectionInstance = await mongoose.connect(
+//             process.env.MONGODB_URI
+//         );
+
+//         console.log(
+//             `MongoDB Connected !! DB HOST: ${connectionInstance.connection.host}`
+//         );
+//     } catch (error) {
+//         console.error("MongoDB Connection Error:");
+//         console.error(error);
+//         process.exit(1);
+//     }
+// };
+
+// export default connectDB;

@@ -7,7 +7,7 @@ import { app } from './app.js'
 dotenv.config({
     path: './.env'
 })
-
+// console.log("Node Version:", process.version);
 connectDB()
 .then(() => {
      app.on("error", (error) => {
