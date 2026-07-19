@@ -11,9 +11,8 @@ import { application } from "express"
 const getAllVideos = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
     //TODO: get all videos based on query, sort, pagination
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 10;
-    const { query, sortBy = "createdAt", sortType = "desc" } = req.query;
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
 
     let filter = {
         isPublished: true
@@ -30,10 +29,11 @@ const getAllVideos = asyncHandler(async (req, res) => {
     sortOption[sortBy] = sortType === "asc" ? 1 : -1;
 
     const videos = await Video.find(filter)
-        .sort(sortOption)
-        .skip((page - 1) * limit)
-        .limit(limit);
+    .sort(sortOption)
+    .skip((pageNumber - 1) * limitNumber)
+    .limit(limitNumber);
 
+    
     return res.status(200)
     .json(new ApiResponse(200, videos, "Videos fetched successfully"))
 })
